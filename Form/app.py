@@ -1,4 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
+import os # Diperlukan untuk menyimpan file
+import time # Diperlukan untuk membuat timestamp
 
 app = Flask(__name__,
 template_folder='views')
@@ -20,11 +22,12 @@ def contact():
     title = "Contact Page"    
     return render_template('contact.html', title=title)
 
-@app.route('/pmb', methods=['GET', 'POST'])
-def pmb():
+@app.route('/register', methods=['GET', 'POST'])
+def register():
     if request.method == 'POST':
         name = request.form['name'] # Ambil data dari form dengan name = 'name'
         email = request.form['email'] # Ambil data dari form dengan name = 'email'
+        
         message = request.form['message'] # Ambil data dari form dengan name = 'message'
         # print(f"Name : {name}, Email: {email}, Message: {message}") # Cetak data yang diterima pada terminal
         # return redirect(url_for('contact')) # Redirect untik menghindari resubmit form
@@ -33,11 +36,11 @@ def pmb():
         confirmation_message = f"Thank you, {name}. Your message has been sent successfully!."
 
         # Render template dengan pesan konfirmasi dan data form
-        return render_template('pmb.html', confirmation_message=confirmation_message, name=name, email=email,
+        return render_template('register.html', confirmation_message=confirmation_message, name=name, email=email,
         message=message)
     
     title = "PMB Page"
-    return render_template('pmb.html', title=title)
+    return render_template('register.html', title=title)
 
 @app.route('/about')
 def about():
