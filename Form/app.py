@@ -10,6 +10,19 @@ def home():
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
     if request.method == 'POST':
+        #Proses datray form disini
+        nama = request.form['nama'] #Ambil dari data form dengan name="nama"
+        email = request.form['email'] #Ambil dari data form dengan name="email"
+        pesan = request.form['pesan'] #Ambil dari data form dengan name="pesan"
+        print(f"Nama: {nama}, Email: {email}, Pesan: {pesan}") #Cetak data yang diterima pada terminal
+        return redirect(url_for('contact')) #Redirect untuk menghindari resubmit form
+
+    title = "Contact Page"    
+    return render_template('contact.html', title=title)
+
+@app.route('/pmb', methods=['GET', 'POST'])
+def pmb():
+    if request.method == 'POST':
         name = request.form['name'] # Ambil data dari form dengan name = 'name'
         email = request.form['email'] # Ambil data dari form dengan name = 'email'
         message = request.form['message'] # Ambil data dari form dengan name = 'message'
@@ -20,11 +33,11 @@ def contact():
         confirmation_message = f"Thank you, {name}. Your message has been sent successfully!."
 
         # Render template dengan pesan konfirmasi dan data form
-        return render_template('contact.html', confirmation_message=confirmation_message, name=name, email=email,
+        return render_template('pmb.html', confirmation_message=confirmation_message, name=name, email=email,
         message=message)
     
-    title = "Contact Page"
-    return render_template('contact.html', title=title)
+    title = "PMB Page"
+    return render_template('pmb.html', title=title)
 
 @app.route('/about')
 def about():
